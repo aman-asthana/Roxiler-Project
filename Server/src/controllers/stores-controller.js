@@ -5,7 +5,23 @@ const client = require("../database/connection")
 
     const getStores = async (req, res) =>{
         try {
-            res.json({message: "Store list comming"})
+            const {name, address} = req.query
+            let query = "SELECT * FROM stores WHERE 1=1";
+            let params = [];
+
+            if (name) {
+                params.push(`%${name}%`);
+                query += ` AND name ILIKE $${params.length}`;
+            }
+            if(address){
+                params.push(`%${address}%`);
+                query += ` And address ILIKE $${params.length}`
+            }
+
+            const result = await client.query(query, params)
+
+            res.json(result.rows)
+
         } catch (error) {
             res.status(500).json({ message: "Error fetching stores", error: error.message })
         }

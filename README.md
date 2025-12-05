@@ -1,4 +1,4 @@
-# ⭐ StoreWise — Role‑Based Store Rating Platform
+# ⭐ Rating System — Role‑Based Store Rating Platform
 
 Modern full‑stack app where Users rate stores, Owners see analytics, and Admins manage it all. Built with React + Vite + Tailwind on the frontend and Node.js + Express + PostgreSQL on the backend.
 

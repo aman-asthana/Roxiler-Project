@@ -1,57 +1,70 @@
 const client = require("../database/connection")
 
-const getStores = async (req, res) =>{
-    try {
-        const userId = req.user.id;
-        const {name, address} = req.query
-        let query = "SELECT * FROM stores WHERE 1=1";
-        let params = [];
+const getStores = async (req, res) => {
+  try {
+    const userId = req.user.id;
 
-        if (name) {
-            params.push(`%${name}%`);
-            query += ` AND name ILIKE $${params.length}`;
-        }
-        if(address){
-            params.push(`%${address}%`);
-            query += ` And address ILIKE $${params.length}`
-        }
+    const {
+      name = "",
+      address = "",
+      sort = "",
+      order = "asc"
+    } = req.query;
 
-        const result = await client.query(query, params)
-        const stores = result.rows;
+    let query = `
+      SELECT 
+        s.id,
+        s.name,
+        s.email,
+        s.address,
+        COALESCE(AVG(r.rating_value), 0) AS overall_rating,
+        (
+          SELECT rating_value 
+          FROM ratings 
+          WHERE store_id = s.id AND user_id = $1
+        ) AS user_rating
 
-        const lastResponse = [];
+      FROM stores s
+      LEFT JOIN ratings r ON s.id = r.store_id
+      WHERE 1 = 1
+    `;
 
-        for (let store of stores) {
-            const overall = await client.query(
-                "SELECT AVG(rating_value) AS avg FROM ratings WHERE store_id = $1",
-                [store.id]
-            );
+    let params = [userId]; 
 
-
-            const userRate = await client.query(
-                "SELECT rating_value FROM ratings WHERE store_id = $1 AND user_id = $2",
-                [store.id, userId]
-            );
-
-            lastResponse.push({
-                id: store.id,
-                name: store.name,
-                email: store.email,
-                address: store.address,
-                owner_id: store.owner_id,
-                overall_rating: overall.rows[0].avg ? Number(overall.rows[0].avg).toFixed(1) : null,
-                user_rating: userRate.rows.length > 0 ? userRate.rows[0].rating_value : null
-            })
-        }
-
-        res.json(lastResponse)
-
-        res.json(result.rows)
-
-    } catch (error) {
-        res.status(500).json({ message: "Error fetching stores", error: error.message })
+    if (name) {
+      params.push(`%${name}%`);
+      query += ` AND s.name ILIKE $${params.length}`;
     }
-}
+
+    if (address) {
+      params.push(`%${address}%`);
+      query += ` AND s.address ILIKE $${params.length}`;
+    }
+
+    query += ` GROUP BY s.id `;
+
+    const validFields = ["name", "email", "address", "rating"];
+
+    if (validFields.includes(sort)) {
+      if (sort === "rating") {
+        query += ` ORDER BY overall_rating ${order.toUpperCase()}`;
+      } else {
+        query += ` ORDER BY s.${sort} ${order.toUpperCase()}`;
+      }
+    }
+
+    const result = await client.query(query, params);
+
+    res.json(result.rows);
+
+  } catch (error) {
+    res.status(500).json({
+      message: "Error fetching stores",
+      error: error.message,
+    });
+  }
+};
+
 
 
 const addStore = async (req, res) => {

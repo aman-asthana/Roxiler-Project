@@ -4,9 +4,33 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 const signup = async (req, res)=>{
+
     try {
+
+        
         const {name, email, password, address} = req.body;
         
+        if (!name || name.length < 20 || name.length > 60) {
+            return res.status(400).json({ message: "Name must be 20–60 characters." });
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({ message: "Invalid email format." });
+        }
+
+        if (!address || address.length > 400) {
+            return res.status(400).json({ message: "Address max length is 400 characters." });
+        }
+
+        const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,16}$/;
+            if (!passwordRegex.test(password)) {
+                return res.status(400).json({
+                    message: "Password must be 8–16 chars, 1 uppercase, 1 special character."
+                });
+            }
+
+
         const exist = await client.query(
             'SELECT * FROM users WHERE email = $1',
             [email]

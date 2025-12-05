@@ -53,43 +53,63 @@ const getDashboard = async (req, res)=>{
     }
 }
 
-getUsers = async (req, res)=> {
-    try {
-        const {name, email, address, role} = req.query;
+getUsers = async (req, res) => {
+  try {
+    const {
+      name = "",
+      email = "",
+      address = "",
+      role = "",
+      sort = "",
+      order = "asc"
+    } = req.query;
 
-        let query = 'SELECT id, name, email, address, role FROM users WHERE 1=1'
-        let params = [];
+    let query = `
+      SELECT id, name, email, address, role
+      FROM users
+      WHERE 1=1
+    `;
 
-       if (name) {
-            params.push(`%${name}%`)
-            query += ` AND name ILIKE $${params.length}`
-        }
+    let params = [];
 
-        if (email) {
-            params.push(`%${email}%`)
-            query += ` AND email ILIKE $${params.length}`
-        }
 
-        if (address) {
-            params.push(`%${address}%`)
-            query += ` AND address ILIKE $${params.length}`
-        }
-
-        if (role) {
-            params.push(role)
-            query += ` AND role = $${params.length}`;
-        }
-
-        const result = await client.query(query, params)
-        res.json(result.rows)
-
-    } catch (error) {
-        res.status(500).json({ 
-            message: "Error fetching users", 
-            error: error.message 
-        })
+    if (name) {
+      params.push(`%${name}%`);
+      query += ` AND name ILIKE $${params.length}`;
     }
-}
+
+    if (email) {
+      params.push(`%${email}%`);
+      query += ` AND email ILIKE $${params.length}`;
+    }
+
+    if (address) {
+      params.push(`%${address}%`);
+      query += ` AND address ILIKE $${params.length}`;
+    }
+
+    if (role) {
+      params.push(role);
+      query += ` AND role = $${params.length}`;
+    }
+
+
+    const validSortFields = ["name", "email", "address", "role"];
+
+    if (validSortFields.includes(sort)) {
+      query += ` ORDER BY ${sort} ${order.toUpperCase()}`;
+    }
+
+    const result = await client.query(query, params);
+    res.json(result.rows);
+
+  } catch (error) {
+    res.status(500).json({
+      message: "Error fetching users",
+      error: error.message,
+    });
+  }
+};
 
 
 const getUserById = async (req, res)=> {

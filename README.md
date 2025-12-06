@@ -302,19 +302,19 @@ npm run dev
 
 ### Login Page
 > Modern login form with validation
-
+![Login Form](./ScreenShots/login.png)
 ### Admin Dashboard
 > Dashboard showing total users, stores, and ratings
-
+![Admin Dashboard](./ScreenShots/AdminDashboard.png)
 ### User Store List
 > Beautiful card layout with search and rating functionality
-
+![User Store List](./ScreenShots/UserStoreList.png)
 ### Rating Modal
 > Interactive star rating with animations
-
+![Rating Model](./ScreenShots/Ratingmodel.png)
 ### Owner Dashboard
 > Store analytics and user ratings list
-
+![Owner Dashboard](./ScreenShots/OwnerDashboard.png)
 </details>
 
 ---

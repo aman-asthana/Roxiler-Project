@@ -16,12 +16,17 @@ const [sort, setSort] = useState({
 });
 
   const fetchUsers = async (sortField) => {
-  const res = await getUsersList({
-    ...filters,
-    sort: sortField || sort.field,
-    order: sort.order
-  });
-  setUsers(res.data);
+  try {
+    const res = await getUsersList({
+      ...filters,
+      sort: sortField || sort.field,
+      order: sort.order
+    });
+    setUsers(res.data);
+  } catch (err) {
+    console.error("Failed to fetch users:", err);
+    alert("Failed to load users. Please try again.");
+  }
 };
 
   useEffect(() => {

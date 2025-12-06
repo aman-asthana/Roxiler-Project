@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function StoreCard({ store, onRate }) {
+const StoreCard = ({ store, onRate }) =>{
   return (
     <div className="border rounded-lg p-5 shadow-sm bg-white hover:shadow-md transition">
 
@@ -39,3 +39,5 @@ export default function StoreCard({ store, onRate }) {
     </div>
   );
 }
+
+export default StoreCard

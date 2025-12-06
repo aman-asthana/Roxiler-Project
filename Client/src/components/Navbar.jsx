@@ -15,28 +15,29 @@ const { user, logout } = useContext(AuthContext);
   if (!user) return null;
 
   return (
-    <div className="bg-gray-800 text-white px-6 py-3 flex justify-between items-center">
+    <div className="bg-gradient-to-r from-gray-800 to-gray-900 text-white px-8 py-4 flex justify-between items-center shadow-lg">
 
+      <h2 className="text-2xl font-bold tracking-wide">
+        ⭐ <span className="text-yellow-400">Rating</span> System
+      </h2>
 
-      <h2 className="text-xl font-semibold">⭐ Rating System</h2>
-
-      <nav className="flex gap-6 items-center">
+      <nav className="flex gap-5 items-center">
 
         {user.role === "ADMIN" && (
           <>
-            <Link to="/admin/dashboard" className="hover:text-gray-300">
+            <Link to="/admin/dashboard" className="hover:text-yellow-400 transition-colors font-medium">
               Dashboard
             </Link>
-            <Link to="/admin/add-user" className="hover:text-gray-300">
+            <Link to="/admin/add-user" className="hover:text-yellow-400 transition-colors font-medium">
               Add User
             </Link>
-            <Link to="/admin/add-store" className="hover:text-gray-300">
+            <Link to="/admin/add-store" className="hover:text-yellow-400 transition-colors font-medium">
               Add Store
             </Link>
-            <Link to="/admin/users" className="hover:text-gray-300">
+            <Link to="/admin/users" className="hover:text-yellow-400 transition-colors font-medium">
               Users
             </Link>
-            <Link to="/admin/stores" className="hover:text-gray-300">
+            <Link to="/admin/stores" className="hover:text-yellow-400 transition-colors font-medium">
               Stores
             </Link>
           </>
@@ -44,10 +45,10 @@ const { user, logout } = useContext(AuthContext);
 
         {user.role === "USER" && (
           <>
-            <Link to="/stores" className="hover:text-gray-300">
+            <Link to="/stores" className="hover:text-yellow-400 transition-colors font-medium">
               Stores
             </Link>
-            <Link to="/update-password" className="hover:text-gray-300">
+            <Link to="/update-password" className="hover:text-yellow-400 transition-colors font-medium">
               Update Password
             </Link>
           </>
@@ -55,10 +56,10 @@ const { user, logout } = useContext(AuthContext);
 
         {user.role === "OWNER" && (
           <>
-            <Link to="/owner/dashboard" className="hover:text-gray-300">
+            <Link to="/owner/dashboard" className="hover:text-yellow-400 transition-colors font-medium">
               Dashboard
             </Link>
-            <Link to="/update-password" className="hover:text-gray-300">
+            <Link to="/update-password" className="hover:text-yellow-400 transition-colors font-medium">
               Update Password
             </Link>
           </>
@@ -66,7 +67,7 @@ const { user, logout } = useContext(AuthContext);
 
         <button
           onClick={handleLogout}
-          className="bg-red-500 hover:bg-red-600 px-3 py-1 rounded"
+          className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg font-semibold transition-all ml-2"
         >
           Logout
         </button>

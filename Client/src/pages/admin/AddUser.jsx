@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { addUserAPI } from "../../api/admin";
 
-export default function AddUser() {
+const AddUser = ()=> {
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -80,3 +80,5 @@ export default function AddUser() {
     </div>
   );
 }
+
+export default AddUser

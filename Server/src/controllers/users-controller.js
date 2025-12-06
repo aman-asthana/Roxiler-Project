@@ -6,6 +6,14 @@ const updatePassword = async (req, res)=>{
         const userId = req.user.id
         const { oldPassword, newPassword } = req.body
 
+        // Validate new password format
+        const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,16}$/;
+        if (!passwordRegex.test(newPassword)) {
+            return res.status(400).json({
+                message: "Password must be 8–16 chars, 1 uppercase, 1 special character."
+            });
+        }
+
         const userData = await client.query(
             "SELECT * FROM users WHERE id = $1",
             [userId]

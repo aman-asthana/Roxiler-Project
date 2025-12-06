@@ -21,8 +21,7 @@ import UpdatePassword from './pages/user/updatePassword';
 const App = ()=> {
   return (
     <BrowserRouter>
-      <Navbar />   
-      <Routes>...</Routes>
+      <Navbar />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
@@ -96,8 +95,11 @@ const App = ()=> {
             </ProtectedRoute>
           }
         />
-
-        <Route path="/update-password" element={<UpdatePassword />} />
+          <Route path="/update-password" element={
+            <ProtectedRoute allowed={['ADMIN', 'USER', 'OWNER']}>
+              <UpdatePassword/>
+            </ProtectedRoute>
+          } />
       </Routes>
 
     </BrowserRouter>

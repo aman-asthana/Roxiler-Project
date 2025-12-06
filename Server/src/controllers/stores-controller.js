@@ -6,6 +6,7 @@ const getStores = async (req, res) => {
 
     const {
       name = "",
+      email = "",
       address = "",
       sort = "",
       order = "asc"
@@ -36,6 +37,11 @@ const getStores = async (req, res) => {
       query += ` AND s.name ILIKE $${params.length}`;
     }
 
+    if (email) {
+      params.push(`%${email}%`);
+      query += ` AND s.email ILIKE $${params.length}`;
+    }
+
     if (address) {
       params.push(`%${address}%`);
       query += ` AND s.address ILIKE $${params.length}`;
@@ -44,12 +50,13 @@ const getStores = async (req, res) => {
     query += ` GROUP BY s.id `;
 
     const validFields = ["name", "email", "address", "rating"];
+    const validOrder = ["ASC", "DESC"].includes(order.toUpperCase()) ? order.toUpperCase() : "ASC";
 
     if (validFields.includes(sort)) {
       if (sort === "rating") {
-        query += ` ORDER BY overall_rating ${order.toUpperCase()}`;
+        query += ` ORDER BY overall_rating ${validOrder}`;
       } else {
-        query += ` ORDER BY s.${sort} ${order.toUpperCase()}`;
+        query += ` ORDER BY s.${sort} ${validOrder}`;
       }
     }
 

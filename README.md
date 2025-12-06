@@ -1,194 +1,340 @@
-# ⭐ Rating System — Role‑Based Store Rating Platform
+<p align="center">
+  <strong style="font-size: 32px;">⭐ Store Rating System</strong>
+</p>
 
-Modern full‑stack app where Users rate stores, Owners see analytics, and Admins manage it all. Built with React + Vite + Tailwind on the frontend and Node.js + Express + PostgreSQL on the backend.
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Frontend-React%20%2B%20Vite-61DAFB?logo=react" alt="React" />
-  <img src="https://img.shields.io/badge/Backend-Node.js%20%2B%20Express-339933?logo=node.js" alt="Node" />
-  <img src="https://img.shields.io/badge/Database-PostgreSQL-336791?logo=postgresql" alt="PostgreSQL" />
-  <img src="https://img.shields.io/badge/Auth-JWT-000000" alt="JWT" />
+  <img src="https://img.shields.io/badge/React-18.x-61DAFB?style=for-the-badge&logo=react&logoColor=white" alt="React" />
+  <img src="https://img.shields.io/badge/Vite-5.x-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
+  <img src="https://img.shields.io/badge/Tailwind-3.x-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind" />
+  <img src="https://img.shields.io/badge/Node.js-20.x-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node" />
+  <img src="https://img.shields.io/badge/Express-4.x-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express" />
+  <img src="https://img.shields.io/badge/PostgreSQL-15-336791?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" />
+  <img src="https://img.shields.io/badge/JWT-Auth-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white" alt="JWT" />
+</p>
+
+<p align="center">
+  <a href="#-features">Features</a> •
+  <a href="#-tech-stack">Tech Stack</a> •
+  <a href="#-installation">Installation</a> •
+  <a href="#-api-endpoints">API</a> •
+  <a href="#-screenshots">Screenshots</a>
 </p>
 
 ---
 
-## 🔎 Overview
+## 🎯 About The Project
 
-- Role-based access (Admin, Owner, User)
-- Users submit/update 1–5 star ratings; averages refresh instantly
-- Owners get store analytics and rater breakdowns
-- Admins manage users, stores, and assignments
+A **modern full-stack web application** that enables users to submit ratings for stores listed on the platform. The system supports **three distinct user roles** with specific functionalities:
 
----
-
-## 🧭 Table of Contents
-
-1. Project Structure
-2. Features by Role
-3. Tech Stack
-4. Architecture
-5. Environment Setup
-6. Quick Start (Windows)
-7. API Summary
-8. Validation Rules
-9. Troubleshooting
-10. Screenshots
-11. Contributing & License
+| Role | Description |
+|------|-------------|
+| 🔴 **System Admin** | Manages users, stores, and views platform analytics |
+| 🟢 **Normal User** | Browses stores, submits/modifies ratings |
+| 🟡 **Store Owner** | Views store analytics and user feedback |
 
 ---
 
-## 📂 Project Structure
+## ✨ Features
 
-```text
-Roxiler-Project/
-├─ Client/                          → React (Vite + Tailwind)
-│  ├─ .env
-│  ├─ vite.config.js
-│  └─ src/
-│     ├─ App.jsx
-│     ├─ main.jsx
-│     ├─ index.css
-│     ├─ api/
-│     │  ├─ axios.js               → uses import.meta.env.VITE_URL
-│     │  ├─ auth.js, admin.js, ...
-│     ├─ components/               → Navbar, StoreCard, ...
-│     ├─ context/                  → AuthContext.jsx
-│     ├─ pages/
-│     │  ├─ admin/                 → AddStore, UsersList, ...
-│     │  ├─ owner/                 → Dashboard.jsx
-│     │  └─ user/                  → StoreList.jsx, updatePassword.jsx
-│     └─ router/                   → ProtectedRoute.jsx
-├─ Server/                          → Express + PostgreSQL
-│  ├─ .env
-│  ├─ server.js
-│  └─ src/
-│     ├─ app.js
-│     ├─ database/                 → connection.js
-│     ├─ middlewares/              → auth-middleware, role-middleware
-│     ├─ controllers/              → auth, admin, owner, ratings, stores, users
-│     └─ routes/                   → auth, admin, owner, rating, stores, users
-└─ README.md
-```
+### 🔴 System Administrator
+- 📊 **Dashboard** with total users, stores, and ratings count
+- 👥 Add new users (Normal Users / Store Owners / Admins)
+- 🏪 Add new stores and assign owners
+- 🔍 **Filter** users by Name, Email, Address, Role
+- ↕️ **Sort** users by any column (ascending/descending)
+- 📋 View detailed user information
+- ⭐ View Store Owner's rating when checking user details
+- 🏬 View all stores with filtering and sorting capabilities
+
+### 🟢 Normal User
+- 📝 **Sign Up** with validated form fields
+- 🔐 Secure **Login/Logout** functionality
+- 🏪 Browse all stores with **search by Name/Address**
+- ⭐ Submit ratings (1-5 stars) for any store
+- ✏️ Modify previously submitted ratings
+- 👁️ View own rating displayed on store cards
+- 🔑 **Update password** with validation
+
+### 🟡 Store Owner
+- 📊 **Dashboard** showing average store rating
+- 👥 View list of users who rated the store
+- ⭐ See individual ratings from each user
+- 🔑 Update password functionality
 
 ---
 
-## 🎯 Features by Role
+## 🛠 Tech Stack
 
-**Admin**
-- Dashboard totals (Users, Stores, Ratings)
-- Add stores, assign owners, manage users
-- Filter/sort lists; pagination
+<table>
+<tr>
+<td align="center" width="50%">
 
-**Store Owner**
-- View owned stores with average ratings
-- See who rated and individual scores
+### Frontend
+![React](https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=react&logoColor=black)
+![Vite](https://img.shields.io/badge/-Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/-Tailwind_CSS-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
+![React Router](https://img.shields.io/badge/-React_Router-CA4245?style=flat-square&logo=react-router&logoColor=white)
+![Axios](https://img.shields.io/badge/-Axios-5A29E4?style=flat-square&logo=axios&logoColor=white)
 
-**User**
-- Browse/search stores in a card layout
-- Submit or update rating (1–5)
+</td>
+<td align="center" width="50%">
 
----
+### Backend
+![Node.js](https://img.shields.io/badge/-Node.js-339933?style=flat-square&logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/-Express-000000?style=flat-square&logo=express&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-336791?style=flat-square&logo=postgresql&logoColor=white)
+![JWT](https://img.shields.io/badge/-JWT-000000?style=flat-square&logo=jsonwebtokens&logoColor=white)
+![Bcrypt](https://img.shields.io/badge/-Bcrypt-003A70?style=flat-square&logo=letsencrypt&logoColor=white)
 
-## 🧱 Tech Stack
-
-- Frontend: React (Vite), Tailwind CSS, React Router, Context API, Axios
-- Backend: Node.js, Express, PostgreSQL, JWT, Bcrypt, CORS
-
----
-
-## 🏗 Architecture
-
-```
-Client (React + Tailwind)
-	│  Axios
-	▼
-API (Node + Express)
-	│  SQL (pg)
-	▼
-DB (PostgreSQL)
-```
-
-Clean controller → route → middleware flow; role-based authorization.
+</td>
+</tr>
+</table>
 
 ---
 
-## 🔐 Environment Setup
+## 📁 Project Structure
 
-Backend `Server/.env`:
 ```
-PORT=3000
-CLIENT_URL=http://localhost:5173
-JWT_SECRET=Roxiler
-DATABASE_URL=postgres://user:password@localhost:5432/rating_system_roxiler
-```
-
-Frontend `Client/.env`:
-```
-VITE_URL=http://localhost:3000
+📦 Roxiler-Project
+│
+├── 📂 Client/                     → React Frontend (Vite + Tailwind CSS)
+│   └── 📂 src/
+│       ├── 📂 api/                → Axios API services for auth, admin, stores, ratings
+│       ├── 📂 components/         → Reusable UI components (Navbar, StoreCard)
+│       ├── 📂 context/            → React Context for global auth state management
+│       ├── 📂 pages/              → All page components organized by role
+│       │   ├── 📂 admin/          → Admin dashboard, user/store management pages
+│       │   ├── 📂 owner/          → Store owner dashboard with analytics
+│       │   └── 📂 user/           → User store browsing and password update
+│       └── 📂 router/             → Protected route wrapper for auth guarding
+│
+├── 📂 Server/                     → Node.js + Express Backend
+│   └── 📂 src/
+│       ├── 📂 controllers/        → Business logic for all API endpoints
+│       ├── 📂 routes/             → Express route definitions with middleware
+│       ├── 📂 middlewares/        → JWT auth verification & role-based access control
+│       └── 📂 database/           → PostgreSQL connection configuration
+│
+└── README.md
 ```
 
 ---
 
-## ⚡ Quick Start (Windows cmd)
+## 🚀 Installation
 
-Backend:
+### Prerequisites
+
+- **Node.js** v18+ 
+- **PostgreSQL** v15+
+- **npm** or **yarn**
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/aman-asthana/Roxiler-Project.git
+cd Roxiler-Project
 ```
+
+### 2️⃣ Database Setup
+
+Create a PostgreSQL database and run the following SQL:
+
+```sql
+-- Create Database
+CREATE DATABASE rating_system_roxiler;
+
+-- Connect to database and create tables
+\c rating_system_roxiler;
+
+-- Users Table
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(60) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    address VARCHAR(400),
+    role VARCHAR(20) DEFAULT 'USER' CHECK (role IN ('ADMIN', 'USER', 'OWNER')),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Stores Table
+CREATE TABLE stores (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    address VARCHAR(400),
+    owner_id INTEGER REFERENCES users(id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Ratings Table
+CREATE TABLE ratings (
+    id SERIAL PRIMARY KEY,
+    store_id INTEGER REFERENCES stores(id) ON DELETE CASCADE,
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    rating_value INTEGER CHECK (rating_value >= 1 AND rating_value <= 5),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(store_id, user_id)
+);
+
+-- Create an Admin user (password: Admin@123)
+INSERT INTO users (name, email, password, address, role) 
+VALUES ('System Administrator User', 'admin@example.com', '$2b$10$...hashed_password...', 'Admin Office Address', 'ADMIN');
+```
+
+### 3️⃣ Backend Setup
+
+```bash
 cd Server
 npm install
+```
+
+Create `Server/.env`:
+```env
+PORT=3000
+CLIENT_URL=http://localhost:5173
+SECRET_KEY=your_super_secret_jwt_key
+DATABASE_URL=postgres://username:password@localhost:5432/rating_system_roxiler
+```
+
+Start the server:
+```bash
 npm start
 ```
 
-Frontend:
-```
+### 4️⃣ Frontend Setup
+
+```bash
 cd Client
 npm install
+```
+
+Create `Client/.env`:
+```env
+VITE_URL=http://localhost:3000
+```
+
+Start the development server:
+```bash
 npm run dev
 ```
 
-Open: http://localhost:5173
+### 5️⃣ Open the Application
+
+🌐 Visit: **http://localhost:5173**
 
 ---
 
-## 📘 API Summary
+## 📡 API Endpoints
 
-Auth
-- POST `/auth/signup`
-- POST `/auth/login`
+### 🔐 Authentication
 
-Admin
-- GET  `/admin/dashboard`
-- POST `/admin/add-store`
-- GET  `/admin/stores`
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/auth/signup` | Register new user |
+| `POST` | `/auth/login` | User login |
 
-Owner
-- GET `/owner/dashboard`
+### 👤 Admin Routes (Protected)
 
-Stores
-- GET `/stores`
-- GET `/stores?name=abc&address=xyz`
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/admin/dashboard` | Get dashboard stats |
+| `POST` | `/admin/add-user` | Add new user |
+| `POST` | `/admin/add-store` | Add new store |
+| `GET` | `/admin/users` | Get all users (with filters) |
+| `GET` | `/admin/users/:id` | Get user details |
 
-Ratings
-- POST `/ratings/:storeId`   (body: `{ rating_value: 1-5 }`)
-- PUT  `/ratings/:storeId`   (body: `{ rating_value: 1-5 }`)
+### 🏪 Store Routes (Protected)
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/stores` | Get all stores |
+| `GET` | `/stores?name=abc&address=xyz` | Filter stores |
+
+### ⭐ Rating Routes (Protected)
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/ratings/:storeId` | Submit rating (1-5) |
+| `PUT` | `/ratings/:storeId` | Update rating |
+
+### 🏠 Owner Routes (Protected)
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/owner/dashboard` | Get owner dashboard |
+
+### 🔑 User Routes (Protected)
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `PUT` | `/users/update-password` | Update password |
 
 ---
 
 ## ✅ Validation Rules
 
-Registration
-- Name: 20–60 chars
-- Address: ≤ 400 chars
-- Password: 8–16 chars, include uppercase + special char
+### 📝 Registration Form
 
-Ratings
-- Integer 1–5, one rating per user per store, editable
+| Field | Validation |
+|-------|------------|
+| **Name** | 20 - 60 characters |
+| **Email** | Valid email format |
+| **Address** | Maximum 400 characters |
+| **Password** | 8-16 characters, at least 1 uppercase letter, 1 special character (!@#$%^&*) |
+
+### ⭐ Rating
+
+| Rule | Description |
+|------|-------------|
+| Value | Integer between 1-5 |
+| Unique | One rating per user per store |
+| Editable | Users can modify their ratings |
 
 ---
 
-## 🛠 Troubleshooting
 
-- 400 on rating: ensure a valid 1–5 `rating_value` is sent (not empty/0)
-- Auth: include `Authorization: Bearer <token>` header (Axios interceptor handles this)
-- Base URL: `Client/src/api/axios.js` uses `import.meta.env.VITE_URL`; set it to `http://localhost:3000`
+## 🖼️ Screenshots
+
+<details>
+<summary>📸 Click to view screenshots</summary>
+
+### Login Page
+> Modern login form with validation
+
+### Admin Dashboard
+> Dashboard showing total users, stores, and ratings
+
+### User Store List
+> Beautiful card layout with search and rating functionality
+
+### Rating Modal
+> Interactive star rating with animations
+
+### Owner Dashboard
+> Store analytics and user ratings list
+
+</details>
 
 ---
+
+## 🛠️ Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| **400 on rating** | Ensure `rating_value` is 1-5 (not empty/0) |
+| **401 Unauthorized** | Check if JWT token is valid and included in headers |
+| **CORS Error** | Verify `CLIENT_URL` in server `.env` matches frontend URL |
+| **Database Connection** | Check `DATABASE_URL` format and PostgreSQL is running |
+| **Env Variables** | Frontend uses `VITE_` prefix (e.g., `VITE_URL`) |
+
+---
+
+## 👨‍💻 Author
+
+**Aman Asthana**
+
+[![GitHub](https://img.shields.io/badge/GitHub-aman--asthana-181717?style=for-the-badge&logo=github)](https://github.com/aman-asthana)
+
 

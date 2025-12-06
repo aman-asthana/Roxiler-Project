@@ -1,5 +1,5 @@
 const client = require('../database/connection')
-require('dotenv').config
+require('dotenv').config()
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
@@ -66,10 +66,10 @@ const login = async (req, res)=>{
         }
         
         const user = exist.rows[0];
-        const userVerify = await bcrypt.compare(password, user.password);
+const userVerify = await bcrypt.compare(password, user.password);
         
         if(!userVerify){
-            return res.status(500).json({message: "Invalid Email or Password"})
+            return res.status(401).json({message: "Invalid Email or Password"})
         }
 
         const token = jwt.sign(

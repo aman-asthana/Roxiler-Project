@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAdminDashboard } from "../../api/admin";
 
-export default function AdminDashboard() {
+const AdminDashboard = ()=> {
   const [stats, setStats] = useState({
     totalUsers: 0,
     totalStores: 0,
@@ -10,8 +10,13 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     const fetchStats = async () => {
-      const res = await getAdminDashboard();
-      setStats(res.data);
+      try {
+        const res = await getAdminDashboard();
+        setStats(res.data);
+      } catch (err) {
+        console.error("Failed to load dashboard:", err);
+        alert("Failed to load dashboard stats.");
+      }
     };
     fetchStats();
   }, []);
@@ -52,3 +57,5 @@ export default function AdminDashboard() {
     </div>
   );
 }
+
+export default AdminDashboard

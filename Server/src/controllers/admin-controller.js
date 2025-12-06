@@ -49,11 +49,11 @@ const getDashboard = async (req, res)=>{
             totalRatings: totalRatings.rows[0].count
         })
     } catch (error) {
-        res.json({message: 'Dashboard Error', error: error.message})
+        res.status(500).json({message: 'Dashboard Error', error: error.message})
     }
 }
 
-getUsers = async (req, res) => {
+const getUsers = async (req, res) => {
   try {
     const {
       name = "",
@@ -95,9 +95,10 @@ getUsers = async (req, res) => {
 
 
     const validSortFields = ["name", "email", "address", "role"];
+    const validOrder = ["ASC", "DESC"].includes(order.toUpperCase()) ? order.toUpperCase() : "ASC";
 
     if (validSortFields.includes(sort)) {
-      query += ` ORDER BY ${sort} ${order.toUpperCase()}`;
+      query += ` ORDER BY ${sort} ${validOrder}`;
     }
 
     const result = await client.query(query, params);

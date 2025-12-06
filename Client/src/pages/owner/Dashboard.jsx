@@ -18,6 +18,10 @@ const OwnerDashboard = () => {
       .then((res) => {
         setData(res.data);
       })
+      .catch((err) => {
+        console.error("Failed to load owner dashboard:", err);
+        alert("Failed to load dashboard. Please try again.");
+      })
       .finally(() => setLoading(false));
   }, []);
 
@@ -32,17 +36,16 @@ const OwnerDashboard = () => {
   return (
     <div className="p-8">
 
-      {/* Page Title */}
+
       <h2 className="text-3xl font-bold mb-6">
         {data.store_name
           ? `${data.store_name} — Dashboard`
           : "Owner Dashboard"}
       </h2>
 
-      {/* TOP SUMMARY CARDS */}
+
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
 
-        {/* Average Rating */}
         <div className="bg-blue-600 text-white p-6 rounded-xl shadow-md text-center">
           <h3 className="text-xl font-semibold">Average Rating</h3>
           <p className="text-4xl font-bold mt-2">
@@ -50,20 +53,20 @@ const OwnerDashboard = () => {
           </p>
         </div>
 
-        {/* Total Ratings */}
+
         <div className="bg-green-600 text-white p-6 rounded-xl shadow-md text-center">
           <h3 className="text-xl font-semibold">Total Ratings</h3>
           <p className="text-4xl font-bold mt-2">{data.total_ratings}</p>
         </div>
 
-        {/* Store ID */}
+
         <div className="bg-gray-800 text-white p-6 rounded-xl shadow-md text-center">
           <h3 className="text-xl font-semibold">Store ID</h3>
           <p className="text-3xl font-bold mt-2">{data.store_id}</p>
         </div>
       </div>
 
-      {/* User Ratings List */}
+
       <h3 className="text-2xl font-bold mb-4">Users Who Rated Your Store</h3>
 
       {data.rated_users.length === 0 ? (

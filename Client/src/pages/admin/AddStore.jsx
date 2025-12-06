@@ -10,7 +10,7 @@ const AddStore = () => {
   });
 
   const [msg, setMsg] = useState("");
-  const [msgType, setMsgType] = useState(""); // success or error
+  const [msgType, setMsgType] = useState("");
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -51,7 +51,6 @@ const AddStore = () => {
         Add Store
       </h2>
 
-      {/* MESSAGE BOX */}
       {msg && (
         <div
           className={`p-3 mb-5 rounded text-sm font-semibold ${
@@ -64,10 +63,8 @@ const AddStore = () => {
         </div>
       )}
 
-      {/* FORM */}
       <form onSubmit={handleSubmit} className="space-y-5 bg-white shadow-md p-6 rounded-xl border">
 
-        {/* Store Name */}
         <div>
           <label className="block text-gray-700 mb-1 font-medium">Store Name</label>
           <input
@@ -80,7 +77,7 @@ const AddStore = () => {
           />
         </div>
 
-        {/* Email */}
+
         <div>
           <label className="block text-gray-700 mb-1 font-medium">Store Email</label>
           <input
@@ -94,7 +91,7 @@ const AddStore = () => {
           />
         </div>
 
-        {/* Address */}
+
         <div>
           <label className="block text-gray-700 mb-1 font-medium">Store Address</label>
           <textarea
@@ -107,7 +104,7 @@ const AddStore = () => {
           ></textarea>
         </div>
 
-        {/* Owner ID */}
+      
         <div>
           <label className="block text-gray-700 mb-1 font-medium">
             Owner ID <span className="text-gray-400">(optional)</span>
@@ -121,7 +118,6 @@ const AddStore = () => {
           />
         </div>
 
-        {/* Button */}
         <button
           type="submit"
           className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition"

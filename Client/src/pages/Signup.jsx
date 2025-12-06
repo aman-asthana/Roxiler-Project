@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import { signupAPI } from '../api/auth';
+import { Link } from 'react-router-dom';
 
 const Signup = () => {
   const [form, setForm] = useState({
@@ -116,6 +117,12 @@ const Signup = () => {
       >
         Signup
       </button>
+      <p className="text-center text-gray-600 mt-6">
+          Already have an account?{" "}
+          <Link to="/login" className="text-blue-600 font-semibold hover:underline">
+            Login
+          </Link>
+        </p>
     </form>
   </div>
 );
